@@ -7,7 +7,7 @@ const Header = () => {
             <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                 <div class="flex items-center justify-between">
                     <img src={logo} alt="logo" style={{width:'1.4cm'}} />
-                    <Link to="/" class="text-3xl ml-5 font-semibold text-white dark:text-gray-800">FrameUp</Link>
+                    <Link to="/" class="text-3xl ml-5 font-semibold text-white dark:text-gray-800" style={{color:'white'}}>FrameUp</Link>
                     <div class="sm:hidden">
                         <button type="button" class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border border-gray-700 font-medium bg-gray-800 text-gray-400 shadow-sm align-middle hover:bg-gray-700/[.25] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800" data-hs-collapse="#navbar-dark" aria-controls="navbar-dark" aria-label="Toggle navigation">
                         <svg class="hs-collapse-open:hidden w-4 h-4" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
