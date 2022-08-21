@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from '../images/logo.png'
 const Header = () => {
     return (
-        <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-gray-800 text-sm py-4 dark:bg-white">
+        <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-gray-800 text-sm py-4 dark:bg-white" style={{backgroundColor:'#1f2937'}}>
             <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
                 <div class="flex items-center justify-between">
                     <img src={logo} alt="logo" style={{width:'1.4cm'}} />
