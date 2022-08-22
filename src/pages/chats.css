@@ -1,0 +1,15 @@
+.frontview{
+    background-color: white;
+    height: 10cm;
+    margin-left:4cm;
+    margin-right:4cm;
+    margin-top: -3cm;
+    border-radius: 5cm;
+}
+
+.prfileimg{
+    border-radius: 50%;
+    width: 1.2cm;
+}
+
+

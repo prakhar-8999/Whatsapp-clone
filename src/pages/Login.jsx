@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import apihit from '../static/axios'
 const Login = () => {
 
   const navigator = useNavigate();
@@ -19,10 +20,28 @@ const Login = () => {
       Swal.fire('Password is Required !!!!')
     }
     else{
-      // setbtnloading(true)
+      setbtnloading(true)
+      const logindata = {
+        'phone':number,
+        'pass1':password
+      }
       console.log(number)
       console.log(password)
-      navigator("/Chats")
+      apihit.post('frameup/login',logindata)
+      .then(res => {
+        console.log(res)
+        setbtnloading(false);
+        navigator("/Chats")
+      })
+      .catch(err => {
+        console.log(err)
+        setbtnloading(false);
+      })
+      .finally(() => {
+        setbtnloading(false);
+    });
+      
+      
     }
   }
 
