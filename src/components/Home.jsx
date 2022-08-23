@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
       <>
@@ -13,8 +14,8 @@ const Home = () => {
               </h1>
               <p class="mb-8 leading-relaxed">With FrameUp, you'll get fast, simple, secure messaging and calling for free*, available on phones all over the world.</p>
               <div class="flex justify-center">
-                <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-                <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+                <Link to="/Register"><button class="inline-flex text-white bg-gray-600 border-0 py-2 px-6 focus:outline-none hover:bg-gray-900 rounded text-lg">Sign Up</button></Link>
+                <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Know more</button>
               </div>
             </div>
             <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
@@ -27,7 +28,7 @@ const Home = () => {
 
 
 
-        <section class="text-gray-600 body-font">
+        {/* <section class="text-gray-600 body-font">
           <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
             <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
               <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600" />
@@ -94,7 +95,7 @@ const Home = () => {
     </div>
     
   </div>
-</section>
+</section> */}
         <Footer/>
       </>
     // <div>Home</div>
