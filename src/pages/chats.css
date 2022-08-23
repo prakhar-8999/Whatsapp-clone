@@ -1,6 +1,6 @@
 .frontview{
     background-color: white;
-    height: 10cm;
+    height: 22cm;
     margin-left:4cm;
     margin-right:4cm;
     margin-top: -3cm;
@@ -10,6 +10,17 @@
 .prfileimg{
     border-radius: 50%;
     width: 1.2cm;
+}
+
+.statusview{
+    margin-left:4cm;
+    margin-right:4cm;
+    height: 20cm;
+}
+
+.contact-view{
+    height: 640px;
+    overflow-y: scroll;
 }
 
 
