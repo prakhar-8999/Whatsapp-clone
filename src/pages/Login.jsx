@@ -21,26 +21,25 @@ const Login = () => {
     }
     else{
       setbtnloading(true)
-      navigator("/Chats")
-    //   const logindata = {
-    //     'phone':number,
-    //     'pass1':password
-    //   }
-    //   console.log(number)
-    //   console.log(password)
-    //   apihit.post('frameup/login',logindata)
-    //   .then(res => {
-    //     console.log(res)
-    //     setbtnloading(false);
-    //     navigator("/Chats")
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     setbtnloading(false);
-    //   })
-    //   .finally(() => {
-    //     setbtnloading(false);
-    // });
+      const logindata = {
+        'phone':number,
+        'pass1':password
+      }
+      console.log(number)
+      console.log(password)
+      apihit.post('frameup/login',logindata)
+      .then(res => {
+        console.log(res)
+        setbtnloading(false);
+        navigator("/Chats")
+      })
+      .catch(err => {
+        console.log(err)
+        setbtnloading(false);
+      })
+      .finally(() => {
+        setbtnloading(false);
+    });
       
       
     }
