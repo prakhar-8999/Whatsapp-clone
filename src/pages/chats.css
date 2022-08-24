@@ -23,4 +23,17 @@
     overflow-y: scroll;
 }
 
+.message-view{
+    height: 680px;
+    overflow-y: scroll;
+}
+
+.profile-photo-large{
+    width: 6cm;
+    margin: auto;
+}
+
+.button-center{
+    text-align: center;  
+}
 
