@@ -22,10 +22,10 @@ function App() {
             <Route path="*" element={<Page404/>}/>
             <Route path="/Login" element={<Login/>}/>
             <Route path="/Register" element={<Register/>}/>  
-            <Route path="/Chats" element={<Chats/>}>
-              <Route path='' element={<Dashhome/>}/>
-              <Route path='Message' element={<Message/>}/>  
-            </Route>              
+            <Route path="/Chats" element={<Chats/>} />
+              {/* <Route path='' element={<Dashhome/>}/> */}
+              {/* <Route path='Message' element={<Message/>}/>   */}
+            {/* </Route>               */}
           </Routes>
         </Router>
       </>

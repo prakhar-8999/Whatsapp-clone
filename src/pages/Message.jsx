@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './chats.css'
 
 const Message = () => {
@@ -7,6 +7,14 @@ const Message = () => {
     const[messagesenderloader,setmessagesenderloader] = useState('fa-solid fa-paper-plane fa-2xl')
 
 
+    const perticularcontact = () => {
+        console.log(localStorage.getItem('phonenum'))
+    }
+
+
+    useEffect(() => {
+        perticularcontact();
+    })
 
     return (
         <>

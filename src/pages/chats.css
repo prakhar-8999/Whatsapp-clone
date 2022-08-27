@@ -10,6 +10,7 @@
 .prfileimg{
     border-radius: 50%;
     width: 1.2cm;
+    height: 1.2cm;
 }
 
 .statusview{
@@ -30,6 +31,8 @@
 
 .profile-photo-large{
     width: 6cm;
+    border-radius: 50%;
+    height: 6cm;
     margin: auto;
 }
 
