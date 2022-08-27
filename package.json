@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "cryptr": "^6.0.3",
+    "ezcryption": "^1.0.4",
     "preline": "^1.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

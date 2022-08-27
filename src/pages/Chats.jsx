@@ -7,6 +7,8 @@ import Alert from '../static/Alert';
 // import defaultpic from '../images/default.png'
 import imageurl from '../static/imageurl';
 import dashhomeimage from '../images/dashhomeimage.png'
+import { useNavigate } from 'react-router-dom';
+// import Spoiler from "ezcryption/dist/spoiler";
 
 // import { Outlet,Link } from 'react-router-dom';
 const Chats = () => {
@@ -17,10 +19,27 @@ const Chats = () => {
 
     const[dashdata,setdashdata] = useState([]);
     const[allcontact,setallcontact] = useState([]);
-    const[perticularcontact,setperticularcontact] = useState([]);
+    const[perticularcontact,setperticularcontact] = useState({});
+    const[allmessages,setallmessages] = useState([]);
+    const[messagesend,setmessgaesend] = useState('');
+
     const[messagesenderloader,setmessagesenderloader] = useState('fa-solid fa-paper-plane fa-2xl')
 
     // const[profilepic,setprofilepic] = useState('https://cdn-icons-png.flaticon.com/512/149/149071.png')
+
+    const navigator = useNavigate();
+
+    const logout = () => {
+        apihit.get('frameup/logout')
+        .then(res => {
+            console.log(res)
+            navigator("/Login")
+            Alert(res.data.msg)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     const dashhit = () => {
         apihit.get('frameup/dashboard')
@@ -111,6 +130,18 @@ const Chats = () => {
         }
     }
 
+    const perticularmessage = () => {
+        console.log({recieve:perticularcontact.id})
+
+        apihit.post('frameup/recieve',{reciever:perticularcontact.id})
+        .then(res => {
+            console.log(res)
+            setallmessages(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     
 
     const numbersend = (phonenumber) => {
@@ -122,14 +153,44 @@ const Chats = () => {
             setperticularcontact(res.data)
             document.getElementById('perticularprofile').src = imageurl + res.data.profile
             document.getElementById('offcanvas-perticular-contact').src = imageurl + res.data.profile
+            perticularmessage();
+
         })
         .catch(err => {
             console.log(err)
         })
+
+        
+        
     }
 
 
+    const sendmessage = () => {
+        if(messagesend === '' || messagesend === null){
+            Alert("Message can't be empty !!!!")
+        }
+        else{
+            setmessagesenderloader('fas fa-spinner fa-pulse fa-2xl')
+            console.log(messagesend)
+            console.log(perticularcontact.id)
+            // console.log(Spoiler.encrypt(messagesend))
+            console.log({'reciever':perticularcontact.id,'message':messagesend})
+            apihit.post('frameup/send',{'reciever':perticularcontact.id,'message':messagesend})
+            .then(res => {
+                console.log(res)
+                setmessagesenderloader('fa-solid fa-paper-plane fa-2xl')
+                setmessgaesend('')
+                perticularmessage()
+            })
+            .catch(err => {
+                console.log(err)
+                setmessagesenderloader('fa-solid fa-paper-plane fa-2xl')
+            })
+        }
+    }
 
+
+    
 
 
 
@@ -271,7 +332,7 @@ const Chats = () => {
                                     <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
                                         Settings
                                     </a>
-                                    <button class="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">
+                                    <button onClick={logout} class="flex w-full items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">
                                         Log out
                                     </button>
                                     </div>
@@ -468,15 +529,31 @@ const Chats = () => {
                                         <p class='text-center mt-8 font-semibold text-3xl'>{'+91 ' + perticularcontact.phone}</p>
                                     
                                     </div>
-                                    <div class="p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                                    <div class="p-6 mt-5 w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                         <p class="mt-1 text-xl font-medium text-gray-500 dark:text-gray-500">
                                             Your Name
                                         </p>
-                                        <p class='mt-2 text-xl' style={{fontWeight:'500'}}>{perticularcontact[0].username}</p>
+                                        <p class='mt-2 text-xl' style={{fontWeight:'500'}}>{perticularcontact.username}</p>
                                         <p class="mt-4 text-xl font-medium text-gray-500 dark:text-gray-500">
                                             Your Email
                                         </p>
-                                        <p class='mt-2 text-xl' style={{fontWeight:'500'}}>{perticularcontact[0].email}</p>
+                                        <p class='mt-2 text-xl' style={{fontWeight:'500'}}>{perticularcontact.email}</p>
+                                    </div>
+
+                                    <div class="p-6 mt-5 w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                                        
+                                        <button style={{color:color.red}} class='w-full p-2 pl-4 hover:bg-slate-200'>
+                                            <div class="flex items-center rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400">
+                                                <i class="fa-solid fa-trash"></i>
+                                                <span class='ml-5 text-2xl'>Delete All Chats</span>
+                                            </div>
+                                        </button>
+                                        <button style={{color:color.red}} class='w-full mt-3 p-2 pl-4 hover:bg-slate-200'>
+                                            <div class="flex items-center rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400">
+                                                <i class="fa-solid fa-trash"></i>
+                                                <span class='ml-5 text-2xl'>{'Block ' + perticularcontact.phone}</span>
+                                            </div>
+                                        </button>
                                     </div>
                                     
 
@@ -557,18 +634,33 @@ const Chats = () => {
                             </div>
                         </div>
                     </nav>
-                    <div class='message-view'>
 
+
+
+
+                    <div class='message-view'>
+                        {
+                            allmessages.map((msg,index) => (
+                                <>
+                                    <div style={{float:msg.reciever_id === perticularcontact.id ? 'left':'right'}} key={index}>
+                                        <p>{msg.message}</p>
+                                    </div><br />
+                                </>
+                            ))
+                        }
                     </div>
+
+
+
                     <div class='bg-slate-200 pt-2 pb-2'>
                         <div class="flex items-center pr-3 pl-3">   
                             <label for="simple-search" class="sr-only">Search</label>
-                            <input type="text" id="simple-search" class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5" placeholder="Enter your message here " required />    
-                            <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-black bg-slate-200 rounded-lg border hover:bg-slate-300">
-                                <i class={messagesenderloader}></i>
-                                {/* <i class="fas fa-spinner fa-pulse fa-2xl"></i> */}
-                                <span class="sr-only">Search</span>
-                            </button>
+                                <input type="text" value={messagesend} id="simple-search" onChange={(e) => setmessgaesend(e.target.value)} class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5" placeholder="Enter your message here " required />    
+                                <button type="button" onClick={sendmessage} class="p-2.5 ml-2 text-sm font-medium text-black bg-slate-200 rounded-lg border hover:bg-slate-300">
+                                    <i class={messagesenderloader}></i>
+                                    {/* <i class="fas fa-spinner fa-pulse fa-2xl"></i> */}
+                                    <span class="sr-only">Search</span>
+                                </button>
                         </div>
                     </div>
 

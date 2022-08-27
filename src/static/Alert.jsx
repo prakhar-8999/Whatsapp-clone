@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Swal from 'sweetalert2'
 const Alert = (aldata) => {
 
@@ -14,16 +14,31 @@ const Alert = (aldata) => {
                 timer: 1500
             })
         }
-        if(aldata.status === 200 && aldata.data.msg === 'Account created'){
+        else if(aldata.status === 200 && aldata.data.msg === 'Account created'){
             Swal.fire({
                 icon: 'success',
                 title: aldata.data.msg,
             })
         }
-        if(aldata === 'no profile pic'){
+        else if(aldata === 'no profile pic'){
             Swal.fire({
                 icon:'info',
                 title:'PLEASE SELECT A FILE ....'
+            })
+        }
+        else if(aldata === "Message can't be empty !!!!"){
+            Swal.fire({
+                icon:'info',
+                title:"Message can't be empty !!!!"
+            })
+        }
+        else if(aldata === 'Logout'){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logout Successfull !!!!',
+                showConfirmButton: false,
+                timer: 1500
             })
         }
     }
