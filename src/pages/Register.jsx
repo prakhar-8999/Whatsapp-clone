@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Swal from 'sweetalert2'
 import apihit from '../static/axios'
 import axios from 'axios'
+import Alert from '../static/Alert'
 const Register = () => {
 
   const[name,setname] = useState('');
@@ -38,6 +39,11 @@ const Register = () => {
       apihit.post('frameup/register',registerdata)
       .then(res => {
         console.log(res)
+        Alert(res)
+        setname('');
+        setemail('');
+        setphone('');
+        setpassword('');
       })
       .catch(err => {
         console.log(err)

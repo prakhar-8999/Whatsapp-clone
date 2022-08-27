@@ -37,3 +37,8 @@
     text-align: center;  
 }
 
+.allcontact-view{
+    overflow-y: scroll;
+    height: 700px;
+}
+

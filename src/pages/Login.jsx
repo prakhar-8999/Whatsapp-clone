@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import apihit from '../static/axios'
+import Alert from '../static/Alert'
 const Login = () => {
 
   const navigator = useNavigate();
@@ -31,11 +32,13 @@ const Login = () => {
       .then(res => {
         console.log(res)
         setbtnloading(false);
+        Alert(res)
         navigator("/Chats")
       })
       .catch(err => {
         console.log(err)
         setbtnloading(false);
+        Alert(err)
       })
       .finally(() => {
         setbtnloading(false);
