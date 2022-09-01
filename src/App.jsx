@@ -6,9 +6,9 @@ import {
 import Home from './components/Home'
 import Page404 from './components/Page404'
 import Chats from "./pages/Chats";
-import Dashhome from "./pages/Dashhome";
+// import Dashhome from "./pages/Dashhome";
 import Login from './pages/Login'
-import Message from "./pages/Message";
+// import Message from "./pages/Message";
 import Register from './pages/Register'
 
 function App() {
