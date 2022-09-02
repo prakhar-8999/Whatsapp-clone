@@ -239,23 +239,23 @@ const Chats = () => {
 
     }, []);
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         if (perticularcontact.id !== undefined) {
-    //             apihit.post('frameup/recieve', { reciever: perticularcontact.id })
-    //                 .then(res => {
-    //                     console.log(res)
-    //                     setallmessages(res.data)
-    //                     setmsgloading(false)
-    //                 })
-    //                 .catch(err => {
-    //                     console.log(err)
-    //                 })
-    //         }
-    //     }, 10000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (perticularcontact.id !== undefined) {
+                apihit.post('frameup/recieve', { reciever: perticularcontact.id })
+                    .then(res => {
+                        console.log(res)
+                        setallmessages(res.data)
+                        setmsgloading(false)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        }, 2000);
 
-    //     return () => clearInterval(interval);
-    // }, []);
+        return () => clearInterval(interval);
+    }, []);
 
     // setInterval(() => {
     //     if (perticularcontact.id !== undefined) {
