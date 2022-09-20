@@ -28,7 +28,7 @@ const Login = () => {
       }
       console.log(number)
       console.log(password)
-      apihit.post('frameup/login', logindata)
+      apihit.post('login', logindata)
         .then(res => {
           console.log(res)
           setbtnloading(false);
@@ -80,7 +80,7 @@ const Login = () => {
               <div class="flex flex-col space-y-1">
                 <label for="email" class="text-sm font-semibold text-gray-500">Phone Number</label>
                 <input
-                  type="number"
+                  type="text"
                   id="number"
                   autofocus
                   class="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"

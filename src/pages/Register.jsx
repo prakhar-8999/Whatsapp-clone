@@ -36,7 +36,7 @@ const Register = () => {
         'phone': phone,
         'pass1': password
       }
-      apihit.post('frameup/register', registerdata)
+      apihit.post('register', registerdata)
         .then(res => {
           console.log(res)
           Alert(res)

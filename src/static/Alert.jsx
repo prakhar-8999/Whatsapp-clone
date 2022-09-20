@@ -41,12 +41,7 @@ const Alert = (aldata) => {
                 timer: 1500
             })
         }
-        else if (aldata.data === "Regisration successfull !!!!") {
-            Swal.fire({
-                icon: 'success',
-                title: aldata.data,
-            })
-        }
+
     }
     givealert();
 

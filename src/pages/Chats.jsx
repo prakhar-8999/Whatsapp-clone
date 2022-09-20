@@ -34,7 +34,7 @@ const Chats = () => {
     const navigator = useNavigate();
 
     const logout = () => {
-        apihit.get('frameup/logout')
+        apihit.get('logout')
             .then(res => {
                 console.log(res)
                 navigator("/Login")
@@ -46,7 +46,7 @@ const Chats = () => {
     }
 
     const dashhit = () => {
-        apihit.get('frameup/dashboard')
+        apihit.get('dashboard')
             .then(res => {
                 console.log(res)
                 setcount(count + 1);
@@ -58,7 +58,7 @@ const Chats = () => {
     }
 
     const allcontacts = () => {
-        apihit.get('frameup/contact')
+        apihit.get('contact')
             .then(res => {
                 console.log(res)
                 setallcontact(res.data)
@@ -95,13 +95,13 @@ const Chats = () => {
 
 
     const userprofilephoto = () => {
-        apihit.get('frameup/userprofile')
+        apihit.get('userprofile')
             .then(res => {
                 console.log(res)
                 setcount(count + 1);
                 if (res.data.profile != '') {
-                    document.getElementById('front-pro-pic').src = imageurl + res.data.profile;
-                    document.getElementById('offcanvas-pro-pic').src = imageurl + res.data.profile;
+                    document.getElementById('front-pro-pic').src = imageurl + res.data.profile_pic;
+                    document.getElementById('offcanvas-pro-pic').src = imageurl + res.data.profile_pic;
                 }
             })
             .catch(err => {
@@ -123,7 +123,7 @@ const Chats = () => {
             console.log(pic)
             const filedata = new FormData();
             filedata.append('profile', pic);
-            apihit.post('frameup/upload', filedata)
+            apihit.post('profileupload', filedata)
                 .then(res => {
                     console.log(res)
                     userprofilephoto();
@@ -139,7 +139,7 @@ const Chats = () => {
         console.log({ recieve: perticularcontact.id })
         console.log(id)
 
-        apihit.post('frameup/recieve', { reciever: id })
+        apihit.post('recieve', { reciever: id })
             .then(res => {
                 console.log(res)
                 setallmessages(res.data)
@@ -154,7 +154,7 @@ const Chats = () => {
         setmsgloading(true)
         console.log({ recieve: perticularcontact.id })
 
-        apihit.post('frameup/recieve', { reciever: perticularcontact.id })
+        apihit.post('recieve', { reciever: perticularcontact.id })
             .then(res => {
                 console.log(res)
                 setallmessages(res.data)
@@ -184,12 +184,12 @@ const Chats = () => {
     const numbersend = (phonenumber) => {
         setmsgsection(false)
         console.log('Phone Number Set', phonenumber)
-        apihit.post('frameup/mobile', { 'phone': phonenumber })
+        apihit.post('perticularcontactdetail', { 'phone': phonenumber })
             .then(res => {
                 console.log(res)
                 setperticularcontact(res.data)
-                document.getElementById('perticularprofile').src = imageurl + res.data.profile
-                document.getElementById('offcanvas-perticular-contact').src = imageurl + res.data.profile
+                document.getElementById('perticularprofile').src = imageurl + res.data.profile_pic
+                document.getElementById('offcanvas-perticular-contact').src = imageurl + res.data.profile_pic
                 // setTimeout(() => {
                 perticularmessage(res.data.id);
                 // }, 2000);
@@ -215,7 +215,7 @@ const Chats = () => {
             console.log(perticularcontact.id)
             // console.log(Spoiler.encrypt(messagesend))
             console.log({ 'reciever': perticularcontact.id, 'message': messagesend })
-            apihit.post('frameup/send', { 'reciever': perticularcontact.id, 'message': messagesend })
+            apihit.post('sendmessage', { 'reciever': perticularcontact.id, 'message': messagesend })
                 .then(res => {
                     console.log(res)
                     setmessagesenderloader('fa-solid fa-paper-plane fa-2xl')
@@ -245,7 +245,7 @@ const Chats = () => {
 
     useEffect(() => {
         if (perticularcontact.id !== undefined) {
-            apihit.post('frameup/recieve', { reciever: perticularcontact.id })
+            apihit.post('recieve', { reciever: perticularcontact.id })
                 .then(res => {
                     console.log(res)
                     setallmessages(res.data)
@@ -455,7 +455,7 @@ const Chats = () => {
                                                 <button class='w-full' key={index} data-hs-offcanvas="#new-contact" onClick={() => numbersend(allc.phone)}>
                                                     {/* <Link to='Message'> */}
                                                     <div class="mt-1 flex items-center bg-white border shadow-sm rounded-xl p-3 md:p-3 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400">
-                                                        <img src={allc.profile === '' ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : imageurl + allc.profile} alt="default" class='prfileimg' />
+                                                        <img src={allc.profile_pic === '' || allc.profile_pic == undefined ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : imageurl + allc.profile_pic} alt="default" class='prfileimg' />
                                                         {/* <img style={{display:allc.profile === '' ? 'none':'block'}} src={imageurl + allc.profile} alt="default" class='prfileimg' /> */}
                                                         <span class='ml-5 font-semibold text-2xl'>{allc.phone}</span>
                                                     </div>
@@ -681,9 +681,9 @@ const Chats = () => {
                                             </button>
 
                                             <div class="hs-dropdown-menu w-72 hidden z-10 bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700" aria-labelledby="hs-dropright">
-                                                <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                                <button data-hs-offcanvas="#user-profile-section" class="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
                                                     Contact info
-                                                </a>
+                                                </button>
                                                 <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
                                                     Select message
                                                 </a>
@@ -718,7 +718,7 @@ const Chats = () => {
 
                                             allmessages.map((msg, index) => (
                                                 <>
-                                                    <div style={{ float: msg.reciever_id === perticularcontact.id ? 'right' : 'left', backgroundColor: msg.reciever_id === perticularcontact.id ? color.sendcolor : 'white' }} class="max-w-sm bg-white border shadow-sm rounded-xl p-2 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]" key={index}>
+                                                    <div style={{ float: msg.receiver === perticularcontact.id ? 'right' : 'left', backgroundColor: msg.receiver === perticularcontact.id ? color.sendcolor : 'white' }} class="max-w-sm bg-white border shadow-sm rounded-xl p-2 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]" key={index}>
                                                         <p class="text-xl font-medium text-gray-500 dark:text-gray-500">
                                                             {msg.message}
                                                         </p>
